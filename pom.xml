@@ -14,7 +14,7 @@
     <artifactId>app</artifactId>
     <name>app</name>
     <description>cst-323 test project</description>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>
