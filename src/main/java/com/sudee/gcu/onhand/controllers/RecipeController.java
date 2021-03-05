@@ -12,17 +12,22 @@ import com.sudee.gcu.onhand.models.RecipeIngredient;
 import com.sudee.gcu.onhand.services.IngredientService;
 import com.sudee.gcu.onhand.services.RecipeIngredientService;
 import com.sudee.gcu.onhand.services.RecipeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
 @SessionAttributes("name")
 public class RecipeController {
+    Logger recipeLogger = LoggerFactory.getLogger(RecipeController.class);
+
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
     private final RecipeIngredientService recipeIngredientService;
@@ -37,6 +42,7 @@ public class RecipeController {
 
     @RequestMapping(value="/add", method = RequestMethod.GET)
     public ModelAndView showAddPage(ModelMap model){
+        recipeLogger.info("Add page was accessed");
         ModelAndView addMav = new ModelAndView();
         addMav.setViewName("add");
         return addMav;
@@ -44,6 +50,7 @@ public class RecipeController {
 
     @RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
     public ModelAndView showEditPage(ModelMap model, @PathVariable int id){
+        recipeLogger.info("RecipeController --- showEditPage --- " + new Date().toString());
         ModelAndView editMav = new ModelAndView();
         Recipe recipe = recipeService.getById(id);
         editMav.addObject("recipe", recipe);
@@ -53,6 +60,7 @@ public class RecipeController {
 
     @RequestMapping(value="/app", method = RequestMethod.GET)
     public ModelAndView showApp(ModelMap model){
+        recipeLogger.info("RecipeController --- showApp --- " + new Date().toString());
         ModelAndView appMav = new ModelAndView();
         appMav.addObject("recipes", recipeService.getRecipes());
         appMav.setViewName("app");
@@ -93,6 +101,8 @@ public class RecipeController {
 
         recipe.setIngredients(recipeIngredients);
         recipeService.save(recipe);
+
+        recipeLogger.info("RecipeController --- save --- " + new Date().toString());
 
         ModelAndView appMav = new ModelAndView();
         appMav.addObject("recipes", recipeService.getRecipes());
@@ -136,6 +146,8 @@ public class RecipeController {
         recipe.setIngredients(recipeIngredients);
         recipeService.save(recipe);
 
+        recipeLogger.info("RecipeController --- create --- " + new Date().toString());
+
         ModelAndView appMav = new ModelAndView();
         appMav.addObject("recipes", recipeService.getRecipes());
         appMav.setViewName("app");
@@ -145,6 +157,9 @@ public class RecipeController {
     @RequestMapping(value="/delete", method = RequestMethod.POST)
     public ModelAndView delete(@RequestParam("recipeId") int recipeId) {
         Recipe recipe = recipeService.getById(recipeId);
+
+        recipeLogger.info("RecipeController --- delete --- " + new Date().toString());
+
         recipeService.delete(recipe);
 
         ModelAndView appMav = new ModelAndView();
