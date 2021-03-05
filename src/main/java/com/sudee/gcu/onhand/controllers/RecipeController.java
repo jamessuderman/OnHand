@@ -42,7 +42,7 @@ public class RecipeController {
 
     @RequestMapping(value="/add", method = RequestMethod.GET)
     public ModelAndView showAddPage(ModelMap model){
-        recipeLogger.info("Add page was accessed");
+        recipeLogger.info("RecipeController --- showAddPage --- " + new Date().toString());
         ModelAndView addMav = new ModelAndView();
         addMav.setViewName("add");
         return addMav;
