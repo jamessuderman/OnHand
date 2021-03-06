@@ -21,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 
+// So that testing can happen
+
 @Controller
 @SessionAttributes("name")
 public class LoginController {
