@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Date;
 
 // So that testing can happen
+// CI/CD pipeline
 
 @Controller
 @SessionAttributes("name")
